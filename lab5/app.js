@@ -3,17 +3,17 @@
 const winningCombos = [
   [0, 1, 2],
   [3, 4, 5],
-  [6, 7, 8],   // الصفوف
+  [6, 7, 8],   
   [0, 3, 6],
   [1, 4, 7],
-  [2, 5, 8],   // الأعمدة
+  [2, 5, 8],  
   [0, 4, 8],
-  [2, 4, 6]    // الأقطار
+  [2, 4, 6]    
 ];
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let board;   // مصفوفة تمثّل حالة كل سكوير
+let board;  
 let turn;    // 'X' أو 'O'
 let winner;  // true / false
 let tie;     // true / false
@@ -34,7 +34,7 @@ resetBtnEl.addEventListener('click', init);
 
 /*-------------------------------- Functions --------------------------------*/
 
-// تهيئة اللعبة
+
 function init() {
   board = ['', '', '', '', '', '', '', '', ''];
   turn = 'X';
@@ -43,20 +43,20 @@ function init() {
   render();
 }
 
-// تحديث الواجهة
+
 function render() {
   updateBoard();
   updateMessage();
 }
 
-// تحديث البورد على حسب المصفوفة
+
 function updateBoard() {
   board.forEach((value, index) => {
     squareEls[index].textContent = value;
   });
 }
 
-// تحديث الرسالة
+
 function updateMessage() {
   if (!winner && !tie) {
     messageEl.textContent = `It's ${turn}'s turn`;
@@ -67,11 +67,11 @@ function updateMessage() {
   }
 }
 
-// لما اللاعب يضغط على سكوير
+
 function handleClick(evt) {
   const sqIdx = parseInt(evt.target.id.replace('sq', ''));
 
-  // لو في فائز أو المربع مو فاضي، لا نسوي شيء
+
   if (winner || board[sqIdx] !== '') return;
 
   placePiece(sqIdx);
@@ -81,12 +81,10 @@ function handleClick(evt) {
   render();
 }
 
-// تحط X أو O في المصفوفة
 function placePiece(index) {
   board[index] = turn;
 }
 
-// تشيك إذا في فائز
 function checkForWinner() {
   for (let combo of winningCombos) {
     const [a, b, c] = combo;
@@ -102,7 +100,6 @@ function checkForWinner() {
   winner = false;
 }
 
-// تشيك إذا تعادل
 function checkForTie() {
   if (winner) return;
 
@@ -113,7 +110,6 @@ function checkForTie() {
   }
 }
 
-// تبديل الدور
 function switchPlayerTurn() {
   if (winner) return;
   turn = (turn === 'X') ? 'O' : 'X';
